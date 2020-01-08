@@ -13,6 +13,7 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 )
 
+// EncoderResponse is struct for sending encoded tx deta back to the caller
 type EncoderResponse struct {
 	EncodedTx []byte `json:"encoded_tx"`
 }
