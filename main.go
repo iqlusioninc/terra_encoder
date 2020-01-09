@@ -14,7 +14,6 @@ import (
 
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	core "github.com/terra-project/core/types"
-
 )
 
 // EncoderResponse is struct for sending encoded tx deta back to the caller
@@ -23,14 +22,6 @@ type EncoderResponse struct {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-
-	config := sdk.GetConfig()
-	config.SetCoinType(core.CoinType)
-	config.SetFullFundraiserPath(core.FullFundraiserPath)
-	config.SetBech32PrefixForAccount(core.Bech32PrefixAccAddr, core.Bech32PrefixAccPub)
-	config.SetBech32PrefixForValidator(core.Bech32PrefixValAddr, core.Bech32PrefixValPub)
-	config.SetBech32PrefixForConsensusNode(core.Bech32PrefixConsAddr, core.Bech32PrefixConsPub)
-	config.Seal()
 
 	cdc := terraapp.MakeCodec()
 
@@ -60,6 +51,14 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+
+	config := sdk.GetConfig()
+	config.SetCoinType(core.CoinType)
+	config.SetFullFundraiserPath(core.FullFundraiserPath)
+	config.SetBech32PrefixForAccount(core.Bech32PrefixAccAddr, core.Bech32PrefixAccPub)
+	config.SetBech32PrefixForValidator(core.Bech32PrefixValAddr, core.Bech32PrefixValPub)
+	config.SetBech32PrefixForConsensusNode(core.Bech32PrefixConsAddr, core.Bech32PrefixConsPub)
+	config.Seal()
 
 	http.HandleFunc("/", handler)
 
